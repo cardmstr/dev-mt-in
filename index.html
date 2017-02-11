@@ -29,19 +29,19 @@ if there isn't a currUser obj on SVC then show newUser in userView else show cur
 	<div class="userView">
 		<div ng-show="!loggedIn" class="createUser">
 				<p>Welcome to DevMountain Social<br />Add some info so friends can find you</p>
-				<form class="newUser" action="index.html" method="post">
-					<input type="text" name="name" value="" placeholder="Full Name">
-					<input type="text" name="tagline" value="" placeholder="Tagline">
-					<input type="text" name="profileimg" value="" placeholder="Profile Image URL">
-					<input type="text" name="bio" value="" placeholder="Bio">
-					<button type="button" name="saveUser" ng-click="logIn()">Save Changes</button>
+				<form class="newUser" name="frmNewUser"action="index.html" method="post">
+					<input type="text" name="name" ng-model="name" value="" placeholder="Full Name" required>
+					<input type="text" name="tagline" ng-model="tagline" value="" placeholder="Tagline" required>
+					<input type="text" name="profileimg" ng-model="profileimg" value="" placeholder="Profile Image URL" required>
+					<input type="text" name="bio" ng-model="bio" value="" placeholder="Bio" required>
+					<button type="button" name="saveUser" ng-click="logIn(name,tagline,profileimg,bio)" ng-disabled="frmNewUser.name.$invalid || frmNewUser.tagline.$invalid || frmNewUser.url.$invalid || frmNewUser.bio.$invalid">Save Changes</button>
 					<div class="loginError"></div>
 				</form>
 		</div>
 		<div ng-show="loggedIn" class="showUser">
-			<div class="UserName">TestUserName</div>
-			<div class="UserTag">TestUserTag</div>
-			<div class="UserBio">TestUserBio</div>
+			<div class="UserName">{{viewUser.name}}</div>
+			<div class="UserTag">{{viewUser.tagline}}</div>
+			<div class="UserBio">{{viewUser.bio}}</div>
 			<div class="AddFriend">TestAddFriendBTN</div>
 		</div>
 	</div>
@@ -54,7 +54,15 @@ if there isn't a currUser obj on SVC then show newUser in userView else show cur
 			View
 		</div>
 		<div ng-show="find" class="find">
-			Find
+			<div class="find-toolbar">
+
+			</div>
+			<div class="userList">
+				<div class="user" ng-repeat="user in users" ng-click="toggleUser(user.friendID)">
+					{{user.name}}
+					<button type="button" name="imabutton" ng-click="getUser(user.friendID)">load</button>
+				</div>
+			</div>
 		</div>
 		<div ng-show="update" class="update">
 			Update

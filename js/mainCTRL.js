@@ -4,13 +4,15 @@ angular.module('devMtnApp').controller('mainCTRL', function($scope, mainSVC){
   $scope.loggedIn = false;
   $scope.triangles = true;
 
-  $scope.logIn = function(){
+  $scope.you = mainSVC.getYou();
+  $scope.viewUser = $scope.you;
+
+  $scope.logIn = function(name,tagline,url,bio){
+    mainSVC.logIn(name,tagline,url,bio);
     $scope.loggedIn = !$scope.loggedIn;
   }
 
-  $scope.toggleUser = function(){
-
-  }
+  $scope.users = mainSVC.getUsers();
 
   $scope.togglePage = function(displayView){
     pages.forEach(function(page){
@@ -20,6 +22,13 @@ angular.module('devMtnApp').controller('mainCTRL', function($scope, mainSVC){
         $scope[page] = false;
       }
     })
+  }
+
+  $scope.getUser = function(userID){
+    var user = mainSVC.getUser(userID);
+    if(user){
+        $scope.viewUser = mainSVC.getUser(userID);
+    }
   }
 
 })
