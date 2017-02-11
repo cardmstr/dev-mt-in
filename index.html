@@ -1,14 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="devMtnApp">
 
 <head>
 	<meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>DevMtin</title>
+	<link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body ng-controller="mainCTRL">
+	<header>
+		<div class="search">
+			<button type="button" name="search">Search</button>
+		</div>
+		<div class="AppName">
+			DevMountain
+		</div>
+		<div class="hamburger">
+			<button type="button" name="hamburger">Menu</button>
+		</div>
+	</header>
 
-  
+<!-- two sections: userView and screenView
+if there isn't a currUser obj on SVC then show newUser in userView else show currUser's info in userView->showUser
+
+ -->
+
+	<div class="userView">
+		<div ng-show="!loggedIn" class="createUser">
+				<p>Welcome to DevMountain Social<br />Add some info so friends can find you</p>
+				<form class="newUser" action="index.html" method="post">
+					<input type="text" name="name" value="" placeholder="Full Name">
+					<input type="text" name="tagline" value="" placeholder="Tagline">
+					<input type="text" name="profileimg" value="" placeholder="Profile Image URL">
+					<input type="text" name="bio" value="" placeholder="Bio">
+					<button type="button" name="saveUser" ng-click="logIn()">Save Changes</button>
+					<div class="loginError"></div>
+				</form>
+		</div>
+		<div ng-show="loggedIn" class="showUser">
+			<div class="UserName">TestUserName</div>
+			<div class="UserTag">TestUserTag</div>
+			<div class="UserBio">TestUserBio</div>
+			<div class="AddFriend">TestAddFriendBTN</div>
+		</div>
+	</div>
+
+	<div class="screenView">
+		<div ng-show="triangles" class="triangles">
+			Triangles - imgURL
+		</div>
+		<div ng-show="view" class="view">
+			View
+		</div>
+		<div ng-show="find" class="find">
+			Find
+		</div>
+		<div ng-show="update" class="update">
+			Update
+		</div>
+	</div>
+
+
+
+	<nav>
+		<div class="footer">
+			<div ng-class="{selected: view}" ng-click= "togglePage('view')" class="footer-item">
+				View Friends
+			</div>
+			<div ng-class="{selected: find}" ng-click= "togglePage('find')" class="footer-item">
+				Find Friends
+			</div>
+			<div ng-class="{selected: update}" ng-click= "togglePage('update')" class="footer-item">
+				Update Profile
+			</div>
+		</div>
+	</nav>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js" charset="utf-8"></script>
+	<script src="js/devMtn.js" charset="utf-8"></script>
+	<script src="js/mainCTRL.js" charset="utf-8"></script>
+	<script src="js/mainSVC.js" charset="utf-8"></script>
 </body>
 </html>
